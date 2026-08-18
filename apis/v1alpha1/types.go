@@ -17,14 +17,12 @@ package v1alpha1
 
 import (
 	ackv1alpha1 "github.com/aws-controllers-k8s/runtime/apis/core/v1alpha1"
-	"github.com/aws/aws-sdk-go/aws"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // Hack to avoid import errors during build...
 var (
 	_ = &metav1.Time{}
-	_ = &aws.JSONValue{}
 	_ = ackv1alpha1.AWSAccountID("")
 )
 
@@ -438,11 +436,13 @@ type OnDemandThroughput struct {
 type PointInTimeRecoveryDescription struct {
 	EarliestRestorableDateTime *metav1.Time `json:"earliestRestorableDateTime,omitempty"`
 	LatestRestorableDateTime   *metav1.Time `json:"latestRestorableDateTime,omitempty"`
+	RecoveryPeriodInDays       *int64       `json:"recoveryPeriodInDays,omitempty"`
 }
 
 // Represents the settings used to enable point in time recovery.
 type PointInTimeRecoverySpecification struct {
-	PointInTimeRecoveryEnabled *bool `json:"pointInTimeRecoveryEnabled,omitempty"`
+	PointInTimeRecoveryEnabled *bool  `json:"pointInTimeRecoveryEnabled,omitempty"`
+	RecoveryPeriodInDays       *int64 `json:"recoveryPeriodInDays,omitempty"`
 }
 
 // Represents attributes that are copied (projected) from the table into an
